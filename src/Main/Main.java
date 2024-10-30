@@ -10,6 +10,7 @@ public class Main {
         String Cookie = GetCookie.getCookie();
         System.out.println(Cookie);
         new MainFrame(Cookie);
+        System.out.println("end");
 
 
 
