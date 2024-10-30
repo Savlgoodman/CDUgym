@@ -33,6 +33,9 @@ public class BookFrame extends JFrame {
         Timer timer = new Timer(interval*1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(currentCycle[0] % 2 == 0){
+                    logArea.setText("");
+                }
                 currentCycle[0]++;
                 float leftTime = (float) ((cycleTimes - currentCycle[0]) * interval) / 60 ; //计算剩余时间e
                 logArea.append("---------------第"+ currentCycle[0] +"/"+cycleTime+"次循环----剩余"+String.format("%.2f",leftTime)+"分钟-------------\n");
@@ -54,10 +57,13 @@ public class BookFrame extends JFrame {
     }
     private boolean visitBOOKAPI(String tName,String tData,String tDataTime ,String Cookie) throws IOException {
         MainAPI api = new MainAPI();
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd HH:mm:ss");
+        String formattedCurrentTime = formatter.format(currentTime);
         String printInfo = "";
         printInfo = api.Run(tName,tData,tDataTime,Cookie);
         logArea.append(printInfo);
-        logArea.append("\n-------------------------\n");
+        logArea.append("\n-------------"+formattedCurrentTime+"------------\n");
         if(printInfo.contains("\\u9884\\u7ea6\\u6210\\u529f")){
             logArea.append("本次预约成功!!\n");
             return true;
@@ -205,6 +211,7 @@ public class BookFrame extends JFrame {
                 targetCurseName = "游泳";
             }
             runLoopBook(targetCurseName, targetDate, tdataTime, interval, cycle);
+            logArea.append("开始预约\n");
             bookingButton.setEnabled(false);
         });
 
