@@ -9,13 +9,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainFrame extends JFrame {
-    private final String FILEPATH = "D:\\Code center\\CDUgym";
+    private final String FILEPATH = System.getProperty("user.dir");
     private String Cookie;
     JLabel icon = new JLabel();
 
@@ -72,7 +73,8 @@ public class MainFrame extends JFrame {
         gbc.gridwidth = 1; // 占据两列
         gbc.fill = GridBagConstraints.HORIZONTAL; // 水平填充
         this.add(icon, gbc);
-        ImageIcon pic = new ImageIcon(FILEPATH+"\\src\\icon.png");
+        URL png = Main.class.getResource("/img/icon.png");
+        ImageIcon pic = new ImageIcon(png);
         Image image = pic.getImage();
         Image scaledImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
